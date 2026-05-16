@@ -133,12 +133,14 @@ function computeMonthlyStats(journeys) {
   journeys.forEach(j => {
     const key = j.startDate.toISOString().slice(0, 7);
     const label = j.startDate.toLocaleString('default', { month: 'short', year: '2-digit' });
-    if (!monthly[key]) monthly[key] = { label, distance: 0, energy: 0, count: 0 };
+    if (!monthly[key]) monthly[key] = { _key: key, label, distance: 0, energy: 0, count: 0 };
     monthly[key].distance += j.distance;
     monthly[key].energy += j.consumption;
     monthly[key].count += 1;
   });
-  return Object.values(monthly).sort((a, b) => a.label.localeCompare(b.label));
+  return Object.values(monthly)
+    .sort((a, b) => a._key.localeCompare(b._key))
+    .map(({ _key, ...rest }) => rest);
 }
 
 function computeHourlyStats(journeys) {
@@ -164,14 +166,16 @@ function computeEfficiencyByMonth(journeys) {
   journeys.forEach(j => {
     const key = j.startDate.toISOString().slice(0, 7);
     const label = j.startDate.toLocaleString('default', { month: 'short', year: '2-digit' });
-    if (!monthly[key]) monthly[key] = { label, distance: 0, energy: 0 };
+    if (!monthly[key]) monthly[key] = { _key: key, label, distance: 0, energy: 0 };
     monthly[key].distance += j.distance;
     monthly[key].energy += j.consumption;
   });
   return Object.values(monthly)
     .map(m => ({
+      _key: m._key,
       label: m.label,
       efficiency: m.distance > 0 ? Math.round((m.energy / m.distance) * 1000) : 0,
     }))
-    .sort((a, b) => a.label.localeCompare(b.label));
+    .sort((a, b) => a._key.localeCompare(b._key))
+    .map(({ _key, ...rest }) => rest);
 }
