@@ -67,8 +67,15 @@ export function analyzeJourneys(journeys, settings) {
   const maxSpeed = Math.max(...journeys.map(j => j.avgSpeed));
 
   // Cost estimate
+  // UK DfT average: 36.7 mpg (imperial gallon = 4.546 litres)
+  // So average car uses 4.546/36.7 = 0.124 litres/mile
+  const UK_AVG_MPG = 36.7;
+  const IMPERIAL_GALLON_LITRES = 4.546;
+  const litresPerMile = IMPERIAL_GALLON_LITRES / UK_AVG_MPG; // ~0.124 L/mi
+
   const elecCostPerKwh = settings?.elecCost || 0.28;
-  const petrolCostPerMile = settings?.petrolCost || 1.43;
+  const petrolCostPerLitre = settings?.petrolCost || 1.43;
+  const petrolCostPerMile = petrolCostPerLitre * litresPerMile;
   const electricityCost = totalEnergy * elecCostPerKwh;
   const petrolEquivalent = totalDistance * petrolCostPerMile;
   const savings = petrolEquivalent - electricityCost;

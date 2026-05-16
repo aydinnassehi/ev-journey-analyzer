@@ -75,7 +75,7 @@ function Dashboard({ journeys, analysis, onReset, settings, onSettingsChange, on
               <input type="number" step="0.01" min="0" value={settings.elecCost} onChange={(e) => updateSetting('elecCost', parseFloat(e.target.value) || 0)} />
             </div>
             <div className="setting-group">
-              <label>Petrol (£/mile)</label>
+              <label>Petrol (£/litre)</label>
               <input type="number" step="0.01" min="0" value={settings.petrolCost} onChange={(e) => updateSetting('petrolCost', parseFloat(e.target.value) || 0)} />
             </div>
             <div className="setting-group">

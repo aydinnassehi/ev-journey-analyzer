@@ -28,8 +28,36 @@ function UploadScreen({ onUpload, onDemo, loading, error, settings, onSettingsCh
     <div className="upload-screen">
       <div className="upload-container">
         <div className="logo">
-          <div className="car-image-wrapper">
-            <img src="/polestar2.png" alt="Polestar 2" className="car-image" />
+          <div className="car-illustration">
+            <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+              {/* Road */}
+              <rect x="0" y="140" width="400" height="40" fill="#1a1a2e" rx="4"/>
+              <line x1="20" y1="160" x2="80" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
+              <line x1="110" y1="160" x2="170" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
+              <line x1="200" y1="160" x2="260" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
+              <line x1="290" y1="160" x2="350" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
+              {/* Car body - Polestar 2 inspired sedan shape */}
+              <path d="M80 130 L80 105 Q80 100 85 98 L130 95 L160 65 Q165 58 175 55 L240 52 Q255 52 265 60 L300 95 L330 98 Q340 98 340 105 L340 130 Q340 135 335 135 L310 135 L310 125 Q310 120 305 120 L295 120 Q290 120 290 125 L290 135 L260 135 Q255 145 240 145 Q225 145 220 135 L175 135 Q170 145 155 145 Q140 145 135 135 L105 135 Q95 135 90 130 Z" fill="#c0c0c8" stroke="#888" strokeWidth="1"/>
+              {/* Windows */}
+              <path d="M165 62 L195 60 L195 93 L135 93 Z" fill="#1a1a2e" stroke="#555" strokeWidth="0.5"/>
+              <path d="L200 93 L200 58 L245 56 Q255 56 260 62 L295 93 Z" fill="#1a1a2e" stroke="#555" strokeWidth="0.5"/>
+              {/* Window divider */}
+              <line x1="200" y1="58" x2="200" y2="93" stroke="#888" strokeWidth="1.5"/>
+              {/* Headlights */}
+              <rect x="330" y="100" width="12" height="8" rx="2" fill="#f59e0b" opacity="0.8"/>
+              <rect x="78" y="100" width="10" height="8" rx="2" fill="#ef4444" opacity="0.8"/>
+              {/* Wheels */}
+              <circle cx="145" cy="135" r="16" fill="#222" stroke="#444" strokeWidth="2"/>
+              <circle cx="145" cy="135" r="8" fill="#333" stroke="#555" strokeWidth="1"/>
+              <circle cx="145" cy="135" r="2" fill="#666"/>
+              <circle cx="270" cy="135" r="16" fill="#222" stroke="#444" strokeWidth="2"/>
+              <circle cx="270" cy="135" r="8" fill="#333" stroke="#555" strokeWidth="1"/>
+              <circle cx="270" cy="135" r="2" fill="#666"/>
+              {/* Polestar logo hint - diagonal line on hood */}
+              <line x1="290" y1="90" x2="320" y2="95" stroke="#c0c0c8" strokeWidth="1" opacity="0.5"/>
+              {/* Text */}
+              <text x="200" y="178" text-anchor="middle" fill="#666" fontSize="11" fontFamily="system-ui">Polestar 2</text>
+            </svg>
           </div>
           <div className="logo-text">
             <BatteryCharging size={32} className="logo-icon" />
@@ -93,7 +121,7 @@ function UploadScreen({ onUpload, onDemo, loading, error, settings, onSettingsCh
                   />
                 </div>
                 <div className="setting-group">
-                  <label>Petrol Cost (£/mile)</label>
+                  <label>Petrol Cost (£/litre)</label>
                   <input
                     type="number"
                     step="0.01"
