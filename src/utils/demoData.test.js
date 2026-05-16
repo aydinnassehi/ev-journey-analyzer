@@ -143,9 +143,9 @@ describe('generateDemoData', () => {
     const journeys = generateDemoData(30);
     for (const j of journeys) {
       expect(j.duration).toBeGreaterThan(0);
-      // Duration should be roughly 1.5-3x the distance in minutes
-      expect(j.duration).toBeGreaterThan(j.distance * 1);
-      expect(j.duration).toBeLessThan(j.distance * 5);
+      // Duration: city trips ~1.5-3x distance in min, highway trips ~0.8-2x
+      expect(j.duration).toBeGreaterThan(j.distance * 0.5);
+      expect(j.duration).toBeLessThan(j.distance * 4);
     }
   });
 
