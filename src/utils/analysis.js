@@ -73,8 +73,8 @@ export function analyzeJourneys(journeys, settings) {
   const IMPERIAL_GALLON_LITRES = 4.546;
   const litresPerMile = IMPERIAL_GALLON_LITRES / UK_AVG_MPG; // ~0.124 L/mi
 
-  const elecCostPerKwh = settings?.elecCost || 0.28;
-  const petrolCostPerLitre = settings?.petrolCost || 1.43;
+  const elecCostPerKwh = settings?.elecCost ?? 0.28;
+  const petrolCostPerLitre = settings?.petrolCost ?? 1.43;
   const petrolCostPerMile = petrolCostPerLitre * litresPerMile;
   const electricityCost = totalEnergy * elecCostPerKwh;
   const petrolEquivalent = totalDistance * petrolCostPerMile;
