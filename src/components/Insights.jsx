@@ -2,6 +2,7 @@ import { Lightbulb, TrendingUp, TrendingDown, Award, Zap, DollarSign } from 'luc
 
 function Insights({ analysis, journeys }) {
   const insights = generateInsights(analysis, journeys);
+  const carName = analysis.carName || 'your EV';
 
   return (
     <div className="insights-container">
@@ -28,6 +29,7 @@ function Insights({ analysis, journeys }) {
 
 function generateInsights(analysis, journeys) {
   const insights = [];
+  const carName = analysis.carName || 'your EV';
 
   // Trip frequency insight
   const tripsPerWeek = (analysis.tripCount / (analysis.daysSpan / 7)).toFixed(1);
@@ -39,13 +41,14 @@ function generateInsights(analysis, journeys) {
   });
 
   // Efficiency insight
-  const efficiencyLabel = analysis.avgEfficiency < 350 ? 'excellent' :
-    analysis.avgEfficiency < 400 ? 'good' :
-    analysis.avgEfficiency < 450 ? 'average' : 'could be improved';
+  const efficiencyLabel = analysis.avgEfficiency < 150 ? 'excellent' :
+    analysis.avgEfficiency < 200 ? 'very good' :
+    analysis.avgEfficiency < 300 ? 'good' :
+    analysis.avgEfficiency < 400 ? 'average' : 'could be improved';
   insights.push({
     icon: <Zap size={20} />,
     title: 'Energy Efficiency',
-    description: `Your average efficiency is ${analysis.avgEfficiency} Wh/mi, which is ${efficiencyLabel}. The BMW i3 typically achieves 300-400 Wh/mi depending on conditions.`,
+    description: `Your average efficiency is ${analysis.avgEfficiency} Wh/mi, which is ${efficiencyLabel}. The ${carName} typically achieves 140-200 Wh/mi depending on conditions and driving style.`,
     color: '#10b981',
   });
 
@@ -58,7 +61,7 @@ function generateInsights(analysis, journeys) {
   });
 
   // CO2 insight
-  const treesEquivalent = Math.round(analysis.co2SavedKg / 20); // ~20kg CO2 absorbed per tree per year
+  const treesEquivalent = Math.round(analysis.co2SavedKg / 20);
   insights.push({
     icon: <Award size={20} />,
     title: 'Environmental Impact',

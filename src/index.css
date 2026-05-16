@@ -711,3 +711,172 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* === Car Image === */
+.car-image-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.car-image {
+  width: 280px;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.logo-icon {
+  color: var(--accent-green);
+  margin-bottom: 0.5rem;
+}
+
+/* === Settings Panel === */
+.settings-panel {
+  margin-bottom: 1.5rem;
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.settings-toggle:hover {
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+}
+
+.settings-form {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.settings-row:last-child {
+  margin-bottom: 0;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.setting-group label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.setting-group input,
+.setting-group select {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.setting-group input:focus,
+.setting-group select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+/* === Dashboard Settings === */
+.dashboard-settings {
+  background: var(--bg-secondary);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-settings .settings-row {
+  grid-template-columns: repeat(6, 1fr);
+  margin-bottom: 0.75rem;
+}
+
+.reanalyze-btn {
+  background: var(--accent-blue);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.reanalyze-btn:hover {
+  background: #2563eb;
+}
+
+/* === Header Right === */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-toggle-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+}
+
+/* === Responsive Updates === */
+@media (max-width: 768px) {
+  .car-image {
+    width: 220px;
+  }
+
+  .dashboard-settings .settings-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .car-image {
+    width: 180px;
+  }
+
+  .settings-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-settings .settings-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

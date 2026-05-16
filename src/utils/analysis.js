@@ -2,7 +2,7 @@
  * Analyze journey data and compute insights
  */
 
-export function analyzeJourneys(journeys) {
+export function analyzeJourneys(journeys, settings) {
   if (!journeys.length) return null;
 
   const sorted = [...journeys].sort((a, b) => a.startDate - b.startDate);
@@ -19,8 +19,10 @@ export function analyzeJourneys(journeys) {
   const lastDate = sorted[sorted.length - 1].startDate;
   const daysSpan = Math.max(1, Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)));
 
-  // CO2 savings (assuming UK grid average ~212g CO2/kWh and avg car ~404g CO2/mile)
-  const co2Saved = (totalDistance * 404) - (totalEnergy * 212); // grams
+  // CO2 savings
+  const gridCO2 = settings?.gridCO2 || 212; // g CO2/kWh
+  const petrolCO2 = settings?.petrolCO2 || 404; // g CO2/mile
+  const co2Saved = (totalDistance * petrolCO2) - (totalEnergy * gridCO2);
   const co2SavedKg = co2Saved / 1000;
 
   // Category breakdown
@@ -64,9 +66,11 @@ export function analyzeJourneys(journeys) {
   const avgSpeed = journeys.reduce((s, j) => s + j.avgSpeed, 0) / journeys.length;
   const maxSpeed = Math.max(...journeys.map(j => j.avgSpeed));
 
-  // Cost estimate (UK avg off-peak ~28p/kWh, avg petrol ~143p/mile)
-  const electricityCost = totalEnergy * 0.28; // GBP
-  const petrolEquivalent = totalDistance * 1.43; // GBP
+  // Cost estimate
+  const elecCostPerKwh = settings?.elecCost || 0.28;
+  const petrolCostPerMile = settings?.petrolCost || 1.43;
+  const electricityCost = totalEnergy * elecCostPerKwh;
+  const petrolEquivalent = totalDistance * petrolCostPerMile;
   const savings = petrolEquivalent - electricityCost;
 
   return {
@@ -99,6 +103,7 @@ export function analyzeJourneys(journeys) {
     savings: Math.round(savings * 100) / 100,
     firstDate,
     lastDate,
+    carName: settings?.carName || 'EV',
   };
 }
 
@@ -119,7 +124,7 @@ function computeDailyStats(journeys) {
 function computeMonthlyStats(journeys) {
   const monthly = {};
   journeys.forEach(j => {
-    const key = j.startDate.toISOString().slice(0, 7); // YYYY-MM
+    const key = j.startDate.toISOString().slice(0, 7);
     const label = j.startDate.toLocaleString('default', { month: 'short', year: '2-digit' });
     if (!monthly[key]) monthly[key] = { label, distance: 0, energy: 0, count: 0 };
     monthly[key].distance += j.distance;
