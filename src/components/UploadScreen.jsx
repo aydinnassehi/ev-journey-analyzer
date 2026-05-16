@@ -29,34 +29,143 @@ function UploadScreen({ onUpload, onDemo, loading, error, settings, onSettingsCh
       <div className="upload-container">
         <div className="logo">
           <div className="car-illustration">
-            <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
-              {/* Road */}
-              <rect x="0" y="140" width="400" height="40" fill="#1a1a2e" rx="4"/>
-              <line x1="20" y1="160" x2="80" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
-              <line x1="110" y1="160" x2="170" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
-              <line x1="200" y1="160" x2="260" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
-              <line x1="290" y1="160" x2="350" y2="160" stroke="#333" strokeWidth="2" strokeDasharray="10,6"/>
-              {/* Car body - Polestar 2 inspired sedan shape */}
-              <path d="M80 130 L80 105 Q80 100 85 98 L130 95 L160 65 Q165 58 175 55 L240 52 Q255 52 265 60 L300 95 L330 98 Q340 98 340 105 L340 130 Q340 135 335 135 L310 135 L310 125 Q310 120 305 120 L295 120 Q290 120 290 125 L290 135 L260 135 Q255 145 240 145 Q225 145 220 135 L175 135 Q170 145 155 145 Q140 145 135 135 L105 135 Q95 135 90 130 Z" fill="#c0c0c8" stroke="#888" strokeWidth="1"/>
-              {/* Windows */}
-              <path d="M165 62 L195 60 L195 93 L135 93 Z" fill="#1a1a2e" stroke="#555" strokeWidth="0.5"/>
-              <path d="L200 93 L200 58 L245 56 Q255 56 260 62 L295 93 Z" fill="#1a1a2e" stroke="#555" strokeWidth="0.5"/>
-              {/* Window divider */}
-              <line x1="200" y1="58" x2="200" y2="93" stroke="#888" strokeWidth="1.5"/>
-              {/* Headlights */}
-              <rect x="330" y="100" width="12" height="8" rx="2" fill="#f59e0b" opacity="0.8"/>
-              <rect x="78" y="100" width="10" height="8" rx="2" fill="#ef4444" opacity="0.8"/>
-              {/* Wheels */}
-              <circle cx="145" cy="135" r="16" fill="#222" stroke="#444" strokeWidth="2"/>
-              <circle cx="145" cy="135" r="8" fill="#333" stroke="#555" strokeWidth="1"/>
-              <circle cx="145" cy="135" r="2" fill="#666"/>
-              <circle cx="270" cy="135" r="16" fill="#222" stroke="#444" strokeWidth="2"/>
-              <circle cx="270" cy="135" r="8" fill="#333" stroke="#555" strokeWidth="1"/>
-              <circle cx="270" cy="135" r="2" fill="#666"/>
-              {/* Polestar logo hint - diagonal line on hood */}
-              <line x1="290" y1="90" x2="320" y2="95" stroke="#c0c0c8" strokeWidth="1" opacity="0.5"/>
-              {/* Text */}
-              <text x="200" y="178" text-anchor="middle" fill="#666" fontSize="11" fontFamily="system-ui">Polestar 2</text>
+            <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#d4d4dc"/>
+                  <stop offset="40%" stopColor="#b8b8c0"/>
+                  <stop offset="100%" stopColor="#909098"/>
+                </linearGradient>
+                <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2a2a3a"/>
+                  <stop offset="100%" stopColor="#14141e"/>
+                </linearGradient>
+                <linearGradient id="headlightGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#fbbf24"/>
+                  <stop offset="100%" stopColor="#f59e0b"/>
+                </linearGradient>
+                <linearGradient id="taillightGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#dc2626"/>
+                  <stop offset="100%" stopColor="#ef4444"/>
+                </linearGradient>
+                <filter id="shadow" x="-5%" y="-5%" width="110%" height="130%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.35"/>
+                </filter>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              {/* Ground / road reflection */}
+              <ellipse cx="300" cy="245" rx="260" ry="18" fill="#0a0a14" opacity="0.6"/>
+
+              <g filter="url(#shadow)">
+                {/* Car body - main shape (Polestar 2 fastback sedan) */}
+                <path d="M100 200 L100 175 Q100 165 108 160 L160 155 L200 120 Q210 108 225 100 L280 92 Q300 88 320 90 L380 92 Q400 94 415 105 L455 148 L490 155 Q500 158 500 165 L500 200 Q500 208 492 208 L460 208 Q455 220 440 220 Q425 220 420 208 L385 208 Q380 220 365 220 Q350 220 345 208 L255 208 Q250 220 235 220 Q220 220 215 208 L130 208 Q108 208 100 200 Z" fill="url(#bodyGrad)" stroke="#777" strokeWidth="0.8"/>
+
+                {/* Roof line */}
+                <path d="M200 120 Q210 108 225 100 L280 92 Q300 88 320 90 L380 92 Q400 94 415 105" fill="none" stroke="#aaa" strokeWidth="1"/>
+
+                {/* Front window (driver side) */}
+                <path d="M208 116 L235 103 L280 95 Q295 92 305 94 L305 148 L175 148 Z" fill="url(#windowGrad)" stroke="#555" strokeWidth="0.6"/>
+
+                {/* Rear window */}
+                <path d="M310 94 L375 96 Q395 98 408 106 L445 145 L310 148 Z" fill="url(#windowGrad)" stroke="#555" strokeWidth="0.6"/>
+
+                {/* B-pillar */}
+                <rect x="303" y="93" width="5" height="56" fill="#888" rx="1"/>
+
+                {/* C-pillar */}
+                <path d="M445 145 L455 148 L455 140 L440 135 Z" fill="#888"/>
+
+                {/* Front door line */}
+                <line x1="308" y1="148" x2="308" y2="195" stroke="#999" strokeWidth="0.5" opacity="0.5"/>
+
+                {/* Rear door line */}
+                <line x1="375" y1="148" x2="378" y2="195" stroke="#999" strokeWidth="0.5" opacity="0.5"/>
+
+                {/* Door handles */}
+                <rect x="255" y="168" width="18" height="3" rx="1.5" fill="#aaa" opacity="0.6"/>
+                <rect x="330" y="168" width="18" height="3" rx="1.5" fill="#aaa" opacity="0.6"/>
+
+                {/* Hood / bonnet */}
+                <path d="M455 148 L490 155 Q500 158 500 165 L500 170 Q500 172 495 172 L455 170 Z" fill="#c8c8d0" stroke="#888" strokeWidth="0.5"/>
+
+                {/* Front bumper */}
+                <path d="M490 170 Q500 172 500 180 L500 200 Q500 208 492 208 L475 208 Q470 200 470 190 L470 175 Z" fill="#808088" stroke="#777" strokeWidth="0.5"/>
+
+                {/* Rear bumper */}
+                <path d="M100 200 Q100 208 108 208 L125 208 Q130 200 130 190 L130 175 Q130 172 125 170 L108 172 Q100 172 100 180 Z" fill="#808088" stroke="#777" strokeWidth="0.5"/>
+
+                {/* Headlight - Thor's Hammer DRL */}
+                <g filter="url(#glow)">
+                  <rect x="485" y="158" width="15" height="5" rx="2" fill="url(#headlightGrad)" opacity="0.9"/>
+                  <rect x="485" y="164" width="15" height="3" rx="1.5" fill="#fff" opacity="0.7"/>
+                  {/* Vertical DRL strip */}
+                  <rect x="495" y="148" width="3" height="14" rx="1" fill="url(#headlightGrad)" opacity="0.8"/>
+                </g>
+
+                {/* Taillight - vertical LED */}
+                <g filter="url(#glow)">
+                  <rect x="100" y="158" width="14" height="5" rx="2" fill="url(#taillightGrad)" opacity="0.9"/>
+                  {/* Vertical taillight strip */}
+                  <rect x="102" y="148" width="3" height="14" rx="1" fill="url(#taillightGrad)" opacity="0.8"/>
+                </g>
+
+                {/* Front grille area (closed, EV) */}
+                <rect x="465" y="175" width="30" height="12" rx="3" fill="#606068" stroke="#777" strokeWidth="0.5"/>
+
+                {/* Polestar badge on front */}
+                <circle cx="480" cy="182" r="4" fill="none" stroke="#ccc" strokeWidth="0.8"/>
+                <line x1="480" y1="178" x2="480" y2="186" stroke="#ccc" strokeWidth="0.5"/>
+                <line x1="476" y1="182" x2="484" y2="182" stroke="#ccc" strokeWidth="0.5"/>
+
+                {/* Side mirror */}
+                <ellipse cx="175" cy="155" rx="8" ry="5" fill="#b0b0b8" stroke="#888" strokeWidth="0.5"/>
+                <ellipse cx="448" cy="155" rx="8" ry="5" fill="#b0b0b8" stroke="#888" strokeWidth="0.5"/>
+
+                {/* Front wheel */}
+                <g>
+                  <circle cx="435" cy="210" r="24" fill="#1a1a22" stroke="#333" strokeWidth="1.5"/>
+                  <circle cx="435" cy="210" r="18" fill="#2a2a32" stroke="#444" strokeWidth="1"/>
+                  <circle cx="435" cy="210" r="12" fill="#333" stroke="#555" strokeWidth="0.8"/>
+                  {/* Rim spokes */}
+                  <line x1="435" y1="198" x2="435" y2="222" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="423" y1="210" x2="447" y2="210" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="427" y1="202" x2="443" y2="218" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="443" y1="202" x2="427" y2="218" stroke="#555" strokeWidth="0.8"/>
+                  <circle cx="435" cy="210" r="4" fill="#666" stroke="#888" strokeWidth="0.5"/>
+                </g>
+
+                {/* Rear wheel */}
+                <g>
+                  <circle cx="225" cy="210" r="24" fill="#1a1a22" stroke="#333" strokeWidth="1.5"/>
+                  <circle cx="225" cy="210" r="18" fill="#2a2a32" stroke="#444" strokeWidth="1"/>
+                  <circle cx="225" cy="210" r="12" fill="#333" stroke="#555" strokeWidth="0.8"/>
+                  {/* Rim spokes */}
+                  <line x1="225" y1="198" x2="225" y2="222" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="213" y1="210" x2="237" y2="210" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="217" y1="202" x2="233" y2="218" stroke="#555" strokeWidth="0.8"/>
+                  <line x1="233" y1="202" x2="217" y2="218" stroke="#555" strokeWidth="0.8"/>
+                  <circle cx="225" cy="210" r="4" fill="#666" stroke="#888" strokeWidth="0.5"/>
+                </g>
+
+                {/* Lower body line / rocker panel */}
+                <line x1="130" y1="195" x2="470" y2="195" stroke="#888" strokeWidth="0.5" opacity="0.4"/>
+
+                {/* Front fender line */}
+                <path d="M455 170 Q460 180 460 195" fill="none" stroke="#999" strokeWidth="0.5" opacity="0.3"/>
+
+                {/* Character line along side */}
+                <path d="M130 175 Q200 172 300 170 Q400 172 460 175" fill="none" stroke="#aaa" strokeWidth="0.6" opacity="0.4"/>
+              </g>
+
+              {/* Ground line */}
+              <line x1="50" y1="235" x2="550" y2="235" stroke="#2a2a3a" strokeWidth="1" opacity="0.3"/>
+
+              {/* Label */}
+              <text x="300" y="265" text-anchor="middle" fill="#888" fontSize="14" fontFamily="system-ui, sans-serif" fontWeight="600" letterSpacing="2">POLESTAR 2</text>
             </svg>
           </div>
           <div className="logo-text">
